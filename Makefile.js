@@ -176,7 +176,7 @@ function generateFormatterExamples(formatterInfo, prereleaseVersion) {
  */
 function generateRuleIndexPage() {
     const outputFile = "../website/_data/rules.yml",
-        ruleTypes = "conf/category-list.json",
+        ruleTypes = "conf/rule-type-list.json",
         ruleTypesData = JSON.parse(cat(path.resolve(ruleTypes)));
 
     RULE_FILES
