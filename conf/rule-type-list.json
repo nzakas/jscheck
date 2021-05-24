@@ -1,8 +1,8 @@
 {
     "types": [
-        { "name": "problem", "description": "Warns about a potential error." },
-        { "name": "suggestion", "description": "Suggests an alternate way of doing something." },
-        { "name": "layout", "description": "Enforces code style." }
+        { "name": "problem", "displayName": "Possible Problems", "description": "Warns about a potential error." },
+        { "name": "suggestion", "displayName": "Suggestions", "description": "Suggests an alternate way of doing something." },
+        { "name": "layout", "displayName": "Layout & Formatting", "description": "Enforces code style." }
     ],
     "deprecated": {
         "name": "Deprecated",
