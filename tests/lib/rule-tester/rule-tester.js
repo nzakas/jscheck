@@ -9,7 +9,8 @@
 //------------------------------------------------------------------------------
 const sinon = require("sinon"),
     EventEmitter = require("events"),
-    { RuleTester } = require("../../../lib/rule-tester"),
+    { RuleTester, internalSlotsMap } = require("../../../lib/rule-tester"),
+    { Linter } = require("../../../lib/linter"),
     assert = require("chai").assert,
     nodeAssert = require("assert");
 
@@ -763,8 +764,16 @@ describe("RuleTester", () => {
     });
 
     it("should pass-through the parser to the rule", () => {
-        const spy = sinon.spy(ruleTester.linter, "verify");
+        const linter = new Linter();
+        const spy = sinon.spy(linter, "verify");
+        const linterMap = new Map([
+            // eslint-disable-next-line no-undefined
+            [undefined, linter]
+        ]);
 
+        const { injectedLinterMapSymbol } = internalSlotsMap;
+
+        ruleTester = new RuleTester();
         ruleTester.run("no-eval", require("../../fixtures/testers/rule-tester/no-eval"), {
             valid: [
                 {
@@ -777,7 +786,8 @@ describe("RuleTester", () => {
                     parser: require.resolve("esprima"),
                     errors: [{ line: 1 }]
                 }
-            ]
+            ],
+            [injectedLinterMapSymbol]: linterMap
         });
         assert.strictEqual(spy.args[1][1].parser, require.resolve("esprima"));
     });
@@ -900,6 +910,20 @@ describe("RuleTester", () => {
                 invalid: []
             });
         }, /Property "env" is the wrong type./u);
+    });
+
+    it("should pass-through the cwd to the linter", () => {
+        ruleTester.run("some-random-rule", ctx => {
+
+            assert.strictEqual(ctx.getCwd(), "myCwd");
+            return {};
+        }, {
+            valid: [{
+                code: "var test = 'foo'",
+                cwd: "myCwd"
+            }],
+            invalid: []
+        });
     });
 
     it("should pass-through the tester config to the rule", () => {
