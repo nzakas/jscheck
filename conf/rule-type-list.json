@@ -1,8 +1,8 @@
 {
     "types": [
-        { "name": "problem", "displayName": "Possible Problems", "description": "Warns about a potential error." },
-        { "name": "suggestion", "displayName": "Suggestions", "description": "Suggests an alternate way of doing something." },
-        { "name": "layout", "displayName": "Layout & Formatting", "description": "Enforces code style." }
+        { "name": "problem", "displayName": "Possible Problems", "description": "These rules relate to possible logic errors in code:" },
+        { "name": "suggestion", "displayName": "Suggestions", "description": "These rules suggest alternate ways of doing things:" },
+        { "name": "layout", "displayName": "Layout & Formatting", "description": "These rules care about how the code looks rather than how it executes:" }
     ],
     "deprecated": {
         "name": "Deprecated",
