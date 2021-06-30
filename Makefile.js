@@ -210,7 +210,7 @@ function generateRuleIndexPage() {
         });
 
     // `.rules` will be `undefined` if all rules in category are deprecated.
-    ruleTypesData.ruleTypes = ruleTypesData.types.filter(ruleType => !!ruleType.rules);
+    ruleTypesData.types = ruleTypesData.types.filter(ruleType => !!ruleType.rules);
 
     const output = yaml.safeDump(ruleTypesData, { sortKeys: true });
 
